@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import ConvexClientProvider from './_providers/ConvexClientProvider';
 
 import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/lib/utils';
@@ -27,7 +28,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        {children}
+        <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>
   );
