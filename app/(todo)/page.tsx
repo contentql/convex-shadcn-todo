@@ -2,13 +2,14 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import React, { useState } from 'react';
+import React from 'react';
 import ListTasks from './_views/ListTasks';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { useTodoStore } from './_store/todo';
 
 const TodoApp = () => {
-  const [task, setTask] = useState('');
+  const { task, setTask } = useTodoStore();
 
   const mutation = useMutation(api.tasks.createTask);
 
