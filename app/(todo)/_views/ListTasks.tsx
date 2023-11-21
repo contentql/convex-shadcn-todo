@@ -9,8 +9,8 @@ const ListTasks = () => {
 
   return (
     <div className='flex flex-col-reverse gap-2'>
-      {tasks?.map(({ _id, task }) => (
-        <IndividualTodo key={_id} task={task} />
+      {tasks?.map((task) => (
+        <IndividualTodo key={task._id} task={task} />
       ))}
     </div>
   );
