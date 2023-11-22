@@ -6,11 +6,23 @@ export const createTask = mutation({
     task: v.string(),
   },
   handler: async (ctx, args) => {
-    const newTaskId = await ctx.db.insert('tasks', {
-      task: args.task,
-    });
+    const { task } = args;
 
-    return newTaskId;
+    await ctx.db.insert('tasks', {
+      task: task,
+    });
+  },
+});
+
+export const updateTask = mutation({
+  args: {
+    id: v.id('tasks'),
+    updatedTaskTo: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { id, updatedTaskTo } = args;
+
+    await ctx.db.patch(id, { task: updatedTaskTo });
   },
 });
 
@@ -25,6 +37,8 @@ export const getAllTasks = query({
 export const deleteTask = mutation({
   args: { id: v.id('tasks') },
   handler: async (ctx, args) => {
-    await ctx.db.delete(args.id);
+    const { id } = args;
+
+    await ctx.db.delete(id);
   },
 });

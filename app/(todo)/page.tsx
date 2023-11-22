@@ -9,9 +9,11 @@ import { api } from '@/convex/_generated/api';
 import { useTodoStore } from './_store/todo';
 
 const TodoApp = () => {
-  const { task, setTask } = useTodoStore();
+  const { task, setTask, editing, editingId, setEditingId, setEditing } =
+    useTodoStore();
 
-  const mutation = useMutation(api.tasks.createTask);
+  const createTask = useMutation(api.tasks.createTask);
+  const updateTask = useMutation(api.tasks.updateTask);
 
   return (
     <div>
@@ -24,14 +26,28 @@ const TodoApp = () => {
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <Button
-          onClick={() => {
-            mutation({ task });
-            setTask('');
-          }}
-        >
-          Add Task
-        </Button>
+
+        {!editing ? (
+          <Button
+            onClick={() => {
+              createTask({ task });
+              setTask('');
+            }}
+          >
+            Add Task
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              updateTask({ id: editingId, updatedTaskTo: task });
+              setTask('');
+              setEditingId(undefined);
+              setEditing(false);
+            }}
+          >
+            Update Task
+          </Button>
+        )}
       </div>
       <div className='w-3/4 mx-auto justify-center align-middle'>
         <ListTasks />
