@@ -41,7 +41,7 @@ const TodoApp = () => {
             onClick={() => {
               updateTask({ id: editingId, updatedTaskTo: task });
               setTask('');
-              setEditingId(undefined);
+              setEditingId(undefined!);
               setEditing(false);
             }}
           >
